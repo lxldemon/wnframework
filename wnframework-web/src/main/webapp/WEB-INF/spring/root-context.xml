@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/context 
+http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+http://www.springframework.org/schema/task
+http://www.springframework.org/schema/task/spring-task-3.0.xsd
+           http://www.springframework.org/schema/cache 
+           http://www.springframework.org/schema/cache/spring-cache-3.2.xsd
+">
+
+	<!-- 开启注解处理器 -->
+	<context:annotation-config />
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- 扫描包内的数据 -->
+	<context:component-scan base-package="com.dcl.blog">
+		<!-- 扫描Service 的注解 -->
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Service" />
+		<!-- 扫描repositiry的注解 -->
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Repository" />
+	</context:component-scan>
+	<!-- 配置数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<!--其它数据库的url和driver参看tools\generator.xml -->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!--rdsoyc0y24x76r2j5t2g.mysql.rds.aliyuncs.com -->
+		<!-- <property name="url" value="jdbc:mysql://192.168.2.34/zhongchou" /> -->
+		<property name="url"
+			value="jdbc:mysql://192.168.2.223/zd1?useUnicode=true&amp;characterEncoding=UTF-8" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+		<!-- <property name="url" value="jdbc:mysql://rm-uf6od3e6yi8eperv3.mysql.rds.aliyuncs.com/ilvlv" 
+			/> <property name="username" value="hzplzc001" /> <property name="password" 
+			value="Hzplzc001" /> -->
+	</bean>
+	<!-- binernate 的注解，以及引用数据源 -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="com.dcl.blog.model."></property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<!-- 开启二级缓存 <prop key="hibernate.cache.use_second_level_cache">true</prop> 
+					<prop key="hibernate.cache.use_structured_entries">true</prop> <prop key="hibernate.cache.use_query_cache">true</prop> 
+					<prop key="hibernate.cache.region_prefix">h3test</property> <prop key="hibernate.cache.provider_class"> 
+					com.googlecode.hibernate.memcached.MemcachedCacheProvider </prop> <prop key="hibernate.memcached.servers">127.0.0.1:11211</prop> 
+					<prop key="hibernate.memcached.operationTimeout">60000</prop> -->
+			</props>
+		</property>
+
+	</bean>
+	<!-- 事务管理 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 注册事物拦截器 -->
+	<bean id="transactionInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="find*">PROPAGATION_REQUIRED</prop>
+				<prop key="get*">PROPAGATION_REQUIRED</prop>
+				<prop key="execute*">PROPAGATION_REQUIRED</prop>
+				<prop key="load*">PROPAGATION_REQUIRED</prop>
+				<prop key="merge*">PROPAGATION_REQUIRED</prop>
+				<prop key="add*">PROPAGATION_REQUIRED</prop>
+				<prop key="is*">PROPAGATION_REQUIRED</prop>
+				<prop key="query*">PROPAGATION_REQUIRED</prop>
+				<prop key="rigister*">PROPAGATION_REQUIRED</prop>
+				<prop key="login*">PROPAGATION_REQUIRED</prop>
+				<prop key="add*">PROPAGATION_REQUIRED</prop>
+				<prop key="send*">PROPAGATION_REQUIRED</prop>
+				<prop key="init*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- 自动创建事务代理 -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="beanNames">
+			<list>
+				<value>*Service</value>
+				<value>*Send</value>
+			</list>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>transactionInterceptor</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 缓存注解 -->
+	<!-- <cache:annotation-driven cache-manager="cacheManager" /> <bean name="cacheManager" 
+		class="com.google.code.ssm.spring.SSMCacheManager"> <property name="caches"> 
+		<set> <bean class="com.google.code.ssm.spring.SSMCache"> <constructor-arg 
+		name="cache" index="0" ref="defaultCache" /> <constructor-arg name="expiration" 
+		index="1" value="60000" /> <constructor-arg name="allowClear" index="2" value="false" 
+		/> </bean> </set> </property> </bean> -->
+
+	<!-- 配置载入属性文件的组件 
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:sms/sms.properties</value>
+				<value>classpath:service.properties</value>
+			</list>
+		</property>
+	</bean>-->
+</beans>

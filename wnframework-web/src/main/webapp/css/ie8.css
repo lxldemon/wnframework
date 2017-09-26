@@ -1,0 +1,13 @@
+select{
+  vertical-align:sub\0;
+
+}
+/* body{
+	margin:200px\0;
+} */
+@media all and (min-width:0) { 
+    body{
+	margin:0px\9;
+    }
+}
+  

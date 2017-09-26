@@ -1,0 +1,226 @@
+/*��¼����*/
+.pop-box{
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: none;
+}
+.pop-dialog{
+    position: fixed;
+    width:68%;
+    left: 50%;
+    margin-left: -34%;
+    top: 20%;
+    z-index: 97;
+}
+.pop-dialog1{
+	top: 20%;
+	position: fixed;
+	z-index: 97;
+	width:550px;
+	left: 50%;
+	margin-left: -275px;
+	background-color:#fff;
+}
+.pop-dialog.pop-dialog-s{
+	width:550px;
+    left: 50%;
+    margin-left: -200px;
+    background-color:#fff;
+    padding:20px 0px 30px 40px;
+}
+.pop-table tbody>tr td:last-child>span:hover,
+.pop-search>span:hover,.pop-dialog>img:hover,.reselect-btn:hover
+{
+    cursor: pointer;
+}
+.pop-dialog>img,.pop-dialog1>img{
+    position: absolute;
+    top:24px;
+    right: -16px;
+}
+.pop-dialog>.close1,.pop-dialog1>.close1{
+	top:-18px;
+}
+.pop-dialog>.close1:hover,.pop-dialog1>.close1:hover{
+	cursor:pointer;
+}
+.pop-dialog-tit,.pop-search>span,.reselect-btn{
+    display: inline-block;
+    color: #ffffff;
+    line-height: 40px;
+    background-color: #1a5a8f;
+    text-align: center;
+    border-radius: 2px;
+}
+.pop-dialog-tit{
+    width: 162px;
+    margin-bottom: 2px;
+}
+.log-tit{
+	text-align:center;
+	line-height:50px;
+	font-size:16px;
+	color:#fff;
+	width:100%;
+	height:50px;
+	background-color:#1a5a8f
+}
+.pop-dialog-cont{
+	height:500px;
+	overflow-y:scroll;
+	overflow-x:hidden;
+    background: #fff;
+    padding-top: 80px;
+    padding-bottom: 100px;
+}
+.pop-dialog-cont1{
+	padding-bottom:30px;
+}
+.pop-item{
+	padding-left:50px;
+	line-height:30px;
+}
+.pop-item>span{
+	display:inline-block;
+	width:250px;
+}
+.content-menun-scroll{
+	height:500px;
+	overflow-y:scroll;
+	overflow-x:hidden;
+    padding-bottom: 40px;
+}
+.pop-search{
+    width: 100%;
+    margin-bottom: 60px;
+}
+.pop-search>label{
+    position: relative;
+    display: inline-block;
+    width: 40%;
+    margin-left: 25px;
+    margin-right: 18px;
+}
+.pop-search>span{
+    width: 88px;
+}
+.pop-search>label>input{
+    padding-left: 10px;
+    width: 100%;
+    height: 39px;
+}
+.pop-search>label>img{
+    position: absolute;
+    top: 8px;
+    right: 15px;
+}
+.pop-table{
+    width: 100%;
+}
+.pop-table td,.pop-table th{
+    line-height: 40px;
+    height: 40px;
+    text-align: center;
+}
+.pop-table td{
+    border: 1px solid #eee;
+}
+.pop-table tbody>tr td:last-child>span{
+    display: inline-block;
+    color: #00b5ca;
+    width: 94px;
+    line-height: 25px;
+    border: 1px solid #00b5ca;
+}
+
+.pop-table>thead th{
+	color:#fff;
+    border: 1px solid transparent;
+    background-color:#1a5a8f;
+}
+/*ǩԼ����*/
+.pop-dialog-cont.bankDialog-cont{
+    padding-top: 40px;
+    padding-bottom: 60px;
+}
+.bankPop-tit{
+    width: 40%;
+    background-color: #e5e5e5;
+    text-align: center;
+    line-height: 28px;
+    margin-left: 30%;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+.pop-Btn{
+    text-align: center;
+    margin-top: 40px;
+}
+.pop-Btn>a {
+    text-align: center;
+    color: #fff;
+    display: inline-block;
+    border-radius: 2px;
+    background-color: #1a5a8f;
+    width: 20%;
+    line-height: 48px;
+}
+.pop-Btn>a:hover{
+	cursor:pointer;
+}
+.pop-Btn>a:last-child {
+    background-color: #8cb3df;
+    margin-left: 14%;
+}
+.pop-Btn .black-btn{
+    background-color: #8cb3df;
+    margin-left: 14%;
+}
+.bankDialog-cont tr>td:last-child input,
+.bankDialog-cont tr>th:last-child input{
+    margin-top: -2px;
+}
+.reselect-btn{
+    line-height: 29px;
+    width: 138px;
+    margin-bottom: 7px;
+    float: right;
+}
+.distribute-inputs>p{
+    text-align: center;
+}
+.distribute-inputs>p>label>span{
+    display: inline-block;
+    width: 90px;
+}
+.distribute-inputs>p>label{
+    display: inline-block;
+    width: 30%;
+}
+.distribute-inputs>p input,.distribute-inputs>p select{
+    height: 33px;
+    width:60% ;
+    margin-left: 6px;
+}
+.distribute-inputs.distribute-inputs1>p>label{
+    width: 48%;
+}
+.distribute-inputs.distribute-inputs1>p>label>span{
+    font-weight: bold;
+    width: 120px;
+}
+.distribute-inputs>p textarea{
+    margin-left: 6px;
+    width: 60%;
+    resize: none;
+}
+#userDialog select{
+	width:150px;
+	height:32px;
+}
